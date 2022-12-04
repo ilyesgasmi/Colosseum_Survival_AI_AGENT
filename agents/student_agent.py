@@ -27,9 +27,6 @@ class StudentAgent(Agent):
     scoreMax = -1000
     moveMax = tuple()
     max_depth = 0
-    scores = []
-    movesScore = []
-    possibleMoves = 0
     def __init__(self):
         super(StudentAgent, self).__init__()
         self.name = "StudentAgent"
@@ -73,9 +70,7 @@ class StudentAgent(Agent):
 
             sys.setrecursionlimit(10000)
         #self.minimax(chess_board,my_pos, adv_pos, 1,0)
-        a = self.alphaBetaMax(chess_board,my_pos,adv_pos,-1000,1000,0)
-        worst = min(self.scores)
-        best = max(self.scores)
+        self.alphaBetaMax(chess_board,my_pos,adv_pos,-1000,1000,0)
         return self.choice
 
     """
@@ -125,10 +120,6 @@ class StudentAgent(Agent):
         for m in allMoves:
             b, p0, p1 = self.makeMove(m,deepcopy(board), p0_pos, p1_pos)
             score = self.alphaBetaMin(b, p0, p1, alpha, beta, depth+1)
-            if(depth==0):
-                    self.scores.append(score)
-                    self.movesScore.append(m)
-                    self.possibleMoves = len(allMoves)
             if(score>=beta):
                 return beta
             if(score>alpha):
