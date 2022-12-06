@@ -41,20 +41,6 @@ class StudentAgent(Agent):
     
 
     def step(self, chess_board, my_pos, adv_pos, max_step):
-        """
-        Implement the step function of your agent here.
-        You can use the following variables to access the chess board:
-        - chess_board: a numpy array of shape (x_max, y_max, 4)
-        - my_pos: a tuple of (x, y)
-        - adv_pos: a tuple of (x, y)
-        - max_step: an integer
-
-        You should return a tuple of ((x, y), dir),
-        where (x, y) is the next position of your agent and dir is the direction of the wall
-        you want to put on.
-
-        Please check the sample implementation in agents/random_agent.py or agents/human_agent.py for more details.
-        """
         if(not self.preprocessed):
             self.preprocessed = True
             self.chess_board = chess_board
@@ -68,7 +54,6 @@ class StudentAgent(Agent):
             if(self.board_size<=6):
                 self.max_depth = 3
 
-            sys.setrecursionlimit(10000)
         #self.minimax(chess_board,my_pos, adv_pos, 1,0)
         self.alphaBetaMax(chess_board,my_pos,adv_pos,-1000,1000,0)
         return self.choice
@@ -127,6 +112,7 @@ class StudentAgent(Agent):
                 if(depth==0):
                     self.choice = m
         return alpha
+        
     def alphaBetaMin(self, board, p0_pos, p1_pos, alpha, beta, depth):
         if(self.check_endgame(board, p1_pos,p1_pos)):
             score = -self.stateScore(board, p0_pos, p1_pos)
